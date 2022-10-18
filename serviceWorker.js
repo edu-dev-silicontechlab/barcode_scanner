@@ -1,8 +1,14 @@
 importScripts("cache.js");
 
-let CACHE_VERSION = "app-v0.00";
+let CACHE_VERSION = "app-v0.01";
 // give all files path you want to work offline
-let CACHE_FILES = ["./", "index.html", "index.js", "cache.js", "icon.png"];
+let CACHE_FILES = [
+  "./",
+  "/barcode_scanner/index.html",
+  "/barcode_scanner/index.js",
+  "/barcode_scanner/cache.js",
+  "/barcode_scanner/icon.png",
+];
 
 self.addEventListener("install", function (event) {
   self.skipWaiting();

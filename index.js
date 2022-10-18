@@ -63,7 +63,8 @@ function step(capturer) {
       .detect(bitmap)
       .then((barcodes) => {
         barcodes.forEach((barcode) => {
-          document.getElementById("barcodes").innerHTML = barcode.rawData;
+          document.getElementById("barcodes").innerHTML =
+            JSON.stringify(barcode);
           // userData.find((ele) => {
           //   ele.id === barcode.rawData
           //     ? (document.getElementById("barcodes").innerHTML = ele.name)
