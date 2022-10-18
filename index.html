@@ -39,8 +39,10 @@
       background-color: #fefefe;
       margin: auto;
       padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
+      height: 70vh;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
     }
 
     /* The Close Button */
@@ -61,7 +63,7 @@
 </head>
 
 <body>
-  <h1 style="text-align: center">BARCODE SCANNER APP v1.14</h1>
+  <h1 style="text-align: center">BARCODE SCANNER APP v1.15</h1>
   <canvas id="canvas" height="240" width="320"></canvas>
   <div id="barcodes"></div>
   <!-- The Modal -->
@@ -70,16 +72,12 @@
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
-      <div id="img"></div>
-      <p id="empName"></p>
-      <p id="empId"></p>
-      <p id="degi"></p>
-
-
+      <div id="imgDiv"></div>
+      <h3 id="empName"></h3>
+      <h3 id="degi"></h3>
     </div>
 
   </div>
-
   <button class="installApp">Install</button>
   <script src="./index.js" async></script>
 </body>

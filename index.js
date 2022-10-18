@@ -2,34 +2,24 @@
 const modal = document.getElementById("myModal");
 modal.style.display = "none";
 
-// Get the button that opens the modal
-const btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal
-
 const empName = document.getElementById("empName");
-const empId = document.getElementById("empId");
 const degi = document.getElementById("degi");
 
 const openModal = (modalData) => {
-  const img = document.createElement("img");
-  img.src = ele.profile_img;
-  document.getElementById("img").appendChild(img);
   modal.style.display = "block";
-  empName.innerHTML = modalData?.emp_name;
-  empId.innerHTML = modalData?.emp_id;
+  empName.innerHTML = `${modalData.emp_name} (${modalData?.emp_id})`;
+  const img = document.createElement("img");
+  img.src = modalData.profile_img;
+  document.getElementById("imgDiv").appendChild(img);
   degi.innerHTML = modalData?.designation;
 };
 
-// When the user clicks anywhere outside of the modal, close it
-// window.onclick = function (event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// };
+span.onclick = function () {
+  modal.style.display = "none";
+};
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
@@ -99,7 +89,7 @@ function step(capturer) {
           userData.find((ele) => {
             ele.id == barcode.rawValue
               ? openModal(ele)
-              : (empName.innerHTML = "No user Found");
+              : alert("no user found");
           });
         });
         step(capturer);
@@ -115,7 +105,7 @@ const userData = [
   {
     id: 53790547,
     emp_name: "Soumyajit Mohapatra",
-    profile_img: "https://avatars.githubusercontent.com/u/30226045?s=64&v=4",
+    profile_img: "https://avatars.githubusercontent.com/u/30226045?s=263&v=4",
     emp_id: 497,
     designation: "Software Engineer",
   },
