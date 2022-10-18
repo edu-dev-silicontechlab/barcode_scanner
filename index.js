@@ -93,6 +93,7 @@ function step(capturer) {
               : alert("no user found");
           });
         });
+        step(capturer);
       })
       .catch((e) => {
         console.error(e);
