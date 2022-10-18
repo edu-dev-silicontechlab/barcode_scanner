@@ -63,14 +63,12 @@ function step(capturer) {
       .detect(bitmap)
       .then((barcodes) => {
         barcodes.forEach((barcode) => {
-          document.getElementById("barcodes").innerHTML =
-            JSON.stringify(barcode);
-          // userData.find((ele) => {
-          //   ele.id === barcode.rawData
-          //     ? (document.getElementById("barcodes").innerHTML = ele.name)
-          //     : (document.getElementById("barcodes").innerHTML =
-          //         "No user found");
-          // });
+          userData.find((ele) => {
+            ele.id == barcode.rawValue
+              ? (document.getElementById("barcodes").innerHTML = ele.name)
+              : (document.getElementById("barcodes").innerHTML =
+                  "No user found");
+          });
         });
         step(capturer);
       })
@@ -83,7 +81,7 @@ function step(capturer) {
 
 const userData = [
   {
-    id: 123456,
+    id: 53790547,
     name: "Soumyajit Mohapatra",
     profile_img: "https://avatars.githubusercontent.com/u/30226045?s=64&v=4",
     emp_id: 497,
