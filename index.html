@@ -9,13 +9,77 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/x-icon" href="icon.png" />
   <link rel="canonical" href="https://edu-dev-silicontechlab.github.io/barcode_scanner/" />
+  <style>
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+    }
 
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-  <h1 style="text-align: center">BARCODE SCANNER APP v1.13</h1>
+  <h1 style="text-align: center">BARCODE SCANNER APP v1.14</h1>
   <canvas id="canvas" height="240" width="320"></canvas>
   <div id="barcodes"></div>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="img"></div>
+      <p id="empName"></p>
+      <p id="empId"></p>
+      <p id="degi"></p>
+
+
+    </div>
+
+  </div>
+
   <button class="installApp">Install</button>
   <script src="./index.js" async></script>
 </body>
