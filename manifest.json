@@ -1,0 +1,16 @@
+{
+    "short_name": "Barcode Scanner",
+    "name": "Barcode Scanner",
+    "description": "This app is use to scan Barcode and QR Code.",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "icon.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }
+    ],
+    "start_url": ".",
+    "theme_color": "#3F51B5"
+  }
+  
