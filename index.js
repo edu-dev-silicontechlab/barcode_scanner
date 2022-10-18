@@ -7,13 +7,12 @@ const span = document.getElementsByClassName("close")[0];
 
 const empName = document.getElementById("empName");
 const degi = document.getElementById("degi");
+const img = document.getElementById("img");
 
 const openModal = (modalData) => {
   modal.style.display = "block";
   empName.innerHTML = `${modalData.emp_name} (${modalData?.emp_id})`;
-  const img = document.createElement("img");
   img.src = modalData.profile_img;
-  document.getElementById("imgDiv").appendChild(img);
   degi.innerHTML = modalData?.designation;
 };
 
@@ -81,7 +80,7 @@ function step(capturer) {
       canvas.width,
       canvas.height
     );
-    var barcodeDetector = new BarcodeDetector();
+    const barcodeDetector = new BarcodeDetector();
     barcodeDetector
       .detect(bitmap)
       .then((barcodes) => {
@@ -92,7 +91,6 @@ function step(capturer) {
               : alert("no user found");
           });
         });
-        step(capturer);
       })
       .catch((e) => {
         console.error(e);

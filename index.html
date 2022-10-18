@@ -10,6 +10,13 @@
   <link rel="icon" type="image/x-icon" href="icon.png" />
   <link rel="canonical" href="https://edu-dev-silicontechlab.github.io/barcode_scanner/" />
   <style>
+    body {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
     /* The Modal (background) */
     .modal {
       display: none;
@@ -59,26 +66,112 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+    .canvas {
+      width: 90vw;
+      height: 60vh;
+      background-color: #000;
+    }
+
+
+    /* Button */
+    .button {
+      height: 20px;
+      width: 150px;
+      cursor: pointer;
+      position: relative;
+      display: block;
+      padding: 10px 6px;
+      font: normal 15px 'Trebuchet MS', Trebuchet, sans-serif;
+      color: #0077c7;
+      text-decoration: none;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+      border-top: 1px solid #aebda8;
+      border-left: 1px solid #a4b5a1;
+      border-right: 1px solid #a4b5a1;
+      border-bottom: 1px solid #99aa95;
+      background: #e2ece1;
+      background: -webkit-linear-gradient(#e2ece1, #d6e1d1);
+      background: -moz-linear-gradient(#e2ece1, #d6e1d1);
+      background: -o-linear-gradient(#e2ece1, #d6e1d1);
+      background: linear-gradient(#e2ece1, #d6e1d1);
+      border-radius: 6px;
+      box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(244, 247, 197, 0.45);
+    }
+
+    .button:hover {
+      background: #eef8ed;
+    }
+
+    .button i {
+      display: inline-block;
+      width: 25px;
+      margin: -3px 3px -3px 2px;
+      vertical-align: middle;
+    }
+
+    .button .label {
+      position: relative;
+      top: -24px;
+      left: 78px;
+    }
+
+    .button .text {
+      display: block;
+      font-size: 9px;
+      line-height: 0;
+      margin-left: 42px;
+      color: #839180;
+      text-shadow: none;
+      font-family: verdana, sans-serif;
+      position: relative;
+      top: -17px;
+    }
   </style>
 </head>
 
 <body>
-  <h1 style="text-align: center">BARCODE SCANNER APP v1.15</h1>
-  <canvas id="canvas" height="240" width="320"></canvas>
-  <div id="barcodes"></div>
+  <h1 style="text-align: center">BARCODE SCANNER APP v1.16</h1>
+  <canvas id="canvas" class="canvas"></canvas>
   <!-- The Modal -->
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close">&times;</span>
-      <div id="imgDiv"></div>
+      <img id="img" />
       <h3 id="empName"></h3>
       <h3 id="degi"></h3>
     </div>
 
   </div>
-  <button class="installApp">Install</button>
+  <div style="margin-top: 7rem">
+    <a class="button" href="#" rel="nofollow">
+      <i>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 400.1 400.1" style="enable-background:new 0 0 400.1 400.1;" xml:space="preserve">
+          <style type="text/css">
+            .st0 {
+              fill: #79F275;
+            }
+
+            .st1 {
+              fill: #3D8749;
+            }
+          </style>
+          <path class="st0" d="M329.2,270.4h-43.7c-8.8,0-16-6.6-16-14.7V66.1H133.3v189.6c0,8.1-7.2,14.7-16,14.7H73.6l127.8,93.5
+  L329.2,270.4z" />
+          <path class="st1" d="M17.8,267.2l173.6,127.1c2.9,2.1,6.5,3.2,10,3.2c3.5,0,7.1-1.1,10-3.2L385,267.2c5.3-3.9,7.4-10.5,5.1-16.4
+  c-2.2-5.9-8.3-9.9-15.1-9.9h-73.5V51.4c0-8.1-7.2-14.7-16-14.7H117.3c-8.9,0-16,6.6-16,14.7V241H27.8c-6.8,0-12.9,4-15.1,9.9
+  C10.4,256.8,12.5,263.3,17.8,267.2z M117.3,270.4c8.8,0,16-6.6,16-14.7V66.1h136.1v189.6c0,8.1,7.2,14.7,16,14.7h43.7l-127.8,93.5
+  L73.6,270.4H117.3L117.3,270.4z" />
+        </svg>
+      </i>
+      <span class="label installApp">Download</span>
+      <span class="text">Download size, 58 KB</span>
+    </a>
+
+  </div>
   <script src="./index.js" async></script>
 </body>
 
