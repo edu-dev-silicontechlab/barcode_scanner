@@ -3,23 +3,26 @@ const modal = document.getElementById("myModal");
 modal.style.display = "none";
 
 // Get the <span> element that closes the modal
-const span = document.getElementsByClassName("close")[0];
+const close = document.getElementsByClassName("close")[0];
 
 const empName = document.getElementById("empName");
 const degi = document.getElementById("degi");
 const img = document.getElementById("img");
+const barcode = document.getElementById("barcode");
 
 const openModal = (modalData) => {
   setTimeout(() => {
-    empName.innerHTML = `${modalData.emp_name} (${modalData?.emp_id})`;
-    img.src = modalData.profile_img;
+    empName.innerHTML = `${modalData?.emp_name} (${modalData?.emp_id})`;
+    img.src = modalData?.profile_img;
+    barcode.src = modalData?.barcode;
     degi.innerHTML = modalData?.designation;
     modal.style.display = "block";
   }, 2000);
 };
 
-span.onclick = function () {
+close.onclick = function () {
   modal.style.display = "none";
+  window.location.reload();
 };
 
 if ("serviceWorker" in navigator) {
@@ -109,5 +112,7 @@ const userData = [
     profile_img: "https://avatars.githubusercontent.com/u/30226045?s=263&v=4",
     emp_id: 497,
     designation: "Software Engineer",
+    barcode:
+      "https://qrcg-media.s3.eu-central-1.amazonaws.com/wp-content/uploads/2020/03/31114611/02-blog-barcode-structure.png",
   },
 ];

@@ -46,7 +46,7 @@
       background-color: #fefefe;
       margin: auto;
       padding: 20px;
-      height: 70vh;
+      height: 100vh;
       align-items: center;
       display: flex;
       flex-direction: column;
@@ -130,17 +130,18 @@
 </head>
 
 <body>
-  <h1 style="text-align: center">BARCODE SCANNER APP v1.19</h1>
+  <h1 style="text-align: center">BARCODE SCANNER APP v1.20</h1>
   <canvas id="canvas" class="canvas"></canvas>
   <!-- The Modal -->
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div class="modal-content">
-      <span class="close">&times;</span>
       <img id="img" />
       <h3 id="empName"></h3>
       <h3 id="degi"></h3>
+      <img id="barcode" />
+      <button class="close">&times;Close</button>
     </div>
 
   </div>
