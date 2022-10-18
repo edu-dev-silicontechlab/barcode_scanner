@@ -63,12 +63,13 @@ function step(capturer) {
       .detect(bitmap)
       .then((barcodes) => {
         barcodes.forEach((barcode) => {
-          userData.find((ele) => {
-            ele.id === barcode.rawData
-              ? (document.getElementById("barcodes").innerHTML = ele.name)
-              : (document.getElementById("barcodes").innerHTML =
-                  "No user found");
-          });
+          document.getElementById("barcodes").innerHTML = barcode;
+          // userData.find((ele) => {
+          //   ele.id === barcode.rawData
+          //     ? (document.getElementById("barcodes").innerHTML = ele.name)
+          //     : (document.getElementById("barcodes").innerHTML =
+          //         "No user found");
+          // });
         });
         step(capturer);
       })
