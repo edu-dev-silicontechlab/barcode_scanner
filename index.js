@@ -1,7 +1,7 @@
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     // give complete path of sw.js file
-    .register("http://127.0.0.1:3000/serviceWorker.js")
+    .register("https://edu-dev-silicontechlab.github.io/serviceWorker.js")
     .then(() => console.log("Service Worker Registered"));
 }
 let deferredPromt;
