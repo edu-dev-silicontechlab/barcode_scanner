@@ -10,10 +10,12 @@ const degi = document.getElementById("degi");
 const img = document.getElementById("img");
 
 const openModal = (modalData) => {
-  modal.style.display = "block";
-  empName.innerHTML = `${modalData.emp_name} (${modalData?.emp_id})`;
-  img.src = modalData.profile_img;
-  degi.innerHTML = modalData?.designation;
+  setTimeout(() => {
+    modal.style.display = "block";
+    empName.innerHTML = `${modalData.emp_name} (${modalData?.emp_id})`;
+    img.src = modalData.profile_img;
+    degi.innerHTML = modalData?.designation;
+  }, 2000);
 };
 
 span.onclick = function () {
