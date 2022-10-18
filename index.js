@@ -4,6 +4,28 @@ if ("serviceWorker" in navigator) {
     .register("http://127.0.0.1:3000/serviceWorker.js")
     .then(() => console.log("Service Worker Registered"));
 }
+let deferredPromt;
+const addBtn = document.querySelector('.installApp')
+addBtn.style.display = 'none'
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPromt = e;
+    addBtn.style.display = 'block'
+
+    addBtn.addEventListener('click', () => {
+        addBtn.style.display = 'none';
+        deferredPromt.prompt();
+        deferredPromt.userChoice.then((choiceResult) => {
+            if(choiceResult.outcome === 'accepted'){
+                console.log('App is installing');
+            }else{
+                console.log('User dismissed the prompt');
+            }
+            deferredPromt = null;
+        })
+    })
+})
 
 navigator.mediaDevices.enumerateDevices().then((devices) => {
   console.log(JSON.stringify(devices));
