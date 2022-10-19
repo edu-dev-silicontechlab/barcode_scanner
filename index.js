@@ -34,20 +34,9 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("Service Worker Registered"));
 }
 let deferredPromt;
-const addBtn = document.querySelector(".installApp");
+const addBtn = document.querySelector(".button");
 // addBtn.style.display = "none";
-addBtn.addEventListener("click", () => {
-  addBtn.style.display = "none";
-  deferredPromt.prompt();
-  deferredPromt.userChoice.then((choiceResult) => {
-    if (choiceResult.outcome === "accepted") {
-      console.log("App is installing");
-    } else {
-      console.log("User dismissed the prompt");
-    }
-    deferredPromt = null;
-  });
-});
+
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPromt = e;

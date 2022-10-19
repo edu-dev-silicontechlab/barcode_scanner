@@ -1,6 +1,6 @@
 importScripts("cache.js");
 
-let CACHE_VERSION = "app-v0.09";
+let CACHE_VERSION = "app-v0.10";
 // give all files path you want to work offline
 let CACHE_FILES = [
   "./",
