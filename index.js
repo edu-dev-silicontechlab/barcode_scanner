@@ -35,7 +35,7 @@ if ("serviceWorker" in navigator) {
 }
 let deferredPromt;
 const addBtn = document.querySelector(".installApp");
-addBtn.style.display = "none";
+// addBtn.style.display = "none";
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
