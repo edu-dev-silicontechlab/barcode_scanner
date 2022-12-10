@@ -1,3 +1,4 @@
+//////MODAL
 // Get the modal
 const modal = document.getElementById("myModal");
 modal.style.display = "none";
@@ -17,74 +18,66 @@ const openModal = (modalData) => {
     barcode.src = modalData?.barcode;
     degi.innerHTML = modalData?.designation;
     modal.style.display = "block";
-  }, 2000);
+  }, 1000);
 };
-
 close.onclick = function () {
   modal.style.display = "none";
   window.location.reload();
 };
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    // give complete path of serviceWorker.js file
-    .register("/barcode_scanner/serviceWorker.js", {
-      scope: "/barcode_scanner/",
-    })
-    .then(() => console.log("Service Worker Registered"));
-}
-let deferredPromt;
-const addBtn = document.querySelector(".button");
-// addBtn.style.display = "none";
+///////SCANNER
+let stream;
+let capturing = true;
+const videoElem = document.querySelector("#video");
+const capBtn = document.getElementById("capture");
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPromt = e;
-  addBtn.style.display = "block";
+const canvas = document.getElementById("canvas");
+canvas.style.display = "none";
 
-  addBtn.addEventListener("click", () => {
-    addBtn.style.display = "none";
-    deferredPromt.prompt();
-    deferredPromt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("App is installing");
-      } else {
-        console.log("User dismissed the prompt");
-      }
-      deferredPromt = null;
-    });
+const startVideo = () => {
+  capturing = false;
+  canvas.style.display = "none";
+  videoElem.style.display = "block";
+  navigator.mediaDevices.enumerateDevices().then(async (devices) => {
+    let id = devices
+      .filter((device) => device.kind === "videoinput")
+      .slice(-1)
+      .pop().deviceId;
+    let constrains = {
+      video: {
+        optional: [{ sourceId: id }],
+      },
+    };
+
+    stream = await navigator.mediaDevices.getUserMedia(constrains);
+
+    videoElem.onplaying = () =>
+      console.log("video playing stream:", videoElem.srcObject);
+    videoElem.srcObject = stream;
   });
-});
+};
+startVideo();
 
-navigator.mediaDevices.enumerateDevices().then((devices) => {
-  console.log(JSON.stringify(devices));
-  let id = devices
-    .filter((device) => device.kind === "videoinput")
-    .slice(-1)
-    .pop().deviceId;
-  let constrains = { video: { optional: [{ sourceId: id }] } };
+capBtn.onclick = () => {
+  if (capturing) {
+    window.location.reload();
+  } else {
+    capturing = true;
+    canvas.style.display = "block";
+    videoElem.style.display = "none";
 
-  navigator.mediaDevices.getUserMedia(constrains).then((stream) => {
     let capturer = new ImageCapture(stream.getVideoTracks()[0]);
     step(capturer);
-  });
-});
-
+    canvas
+      .getContext("2d")
+      .drawImage(videoElem, 0, 0, canvas.width, canvas.height);
+    canvas.style.display = "block";
+    videoElem.style.display = "none";
+  }
+};
 function step(capturer) {
+  console.log(capturer);
   capturer.grabFrame().then((bitmap) => {
-    let canvas = document.getElementById("canvas");
-    let ctx = canvas.getContext("2d");
-    ctx.drawImage(
-      bitmap,
-      0,
-      0,
-      bitmap.width,
-      bitmap.height,
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
     const barcodeDetector = new BarcodeDetector();
     barcodeDetector
       .detect(bitmap)
@@ -99,11 +92,32 @@ function step(capturer) {
         step(capturer);
       })
       .catch((e) => {
-        console.error(e);
-        document.getElementById("barcodes").innerHTML = "None";
-      });
+        console.error(e.message);
+      })
+      .finally(() => stream.getTracks().forEach((track) => track.stop()));
   });
 }
+
+var resultContainer = document.getElementById("qr-reader-results");
+var lastResult,
+  countResults = 0;
+
+function onScanSuccess(decodedText, decodedResult) {
+  if (decodedText !== lastResult) {
+    ++countResults;
+    lastResult = decodedText;
+    // Handle on success condition with the decoded message.
+    console.log(`Scan result ${decodedText}`, decodedResult);
+  }
+  ele.id == decodedText ? openModal(ele) : alert("no user found");
+  step(capturer);
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
+  fps: 10,
+  qrbox: 250,
+});
+html5QrcodeScanner.render(onScanSuccess);
 
 const userData = [
   {

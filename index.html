@@ -6,37 +6,37 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>BARCODE SCANNER APP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/x-icon" href="icon.png" />
-  <link rel="canonical" href="https://edu-dev-silicontechlab.github.io/barcode_scanner/" />
+  <script src="./html5-qrcode.js"></script>
   <style>
     body {
       align-items: center;
       justify-content: center;
       display: flex;
       flex-direction: column;
+      margin: 0;
+      background: #c0ddf1;
     }
 
-    /* The Modal (background) */
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
     .modal {
       display: none;
-      /* Hidden by default */
       position: fixed;
-      /* Stay in place */
       z-index: 1;
-      /* Sit on top */
       left: 0;
       top: 0;
       width: 100%;
-      /* Full width */
       height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
-      /* Black w/ opacity */
+      background: rgba(0, 0, 0, .5);
+      animation: fadein 1s;
     }
 
     /* Modal Content */
@@ -44,133 +44,237 @@
       background-color: #fefefe;
       margin: auto;
       padding: 20px;
-      height: 100vh;
+      height: 100%;
       align-items: center;
       display: flex;
       flex-direction: column;
     }
 
+    .no-data-modal {
+      width: 300px;
+      height: 200px;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      border-radius: 1rem;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      transform: translateY(-50%);
+      background-color: #fefefe;
+    }
+
     /* The Close Button */
-    .close {
-      color: #aaaaaa;
-      float: right;
+    #close {
+      color: #696666;
       font-size: 28px;
       font-weight: bold;
+      border-radius: 7px;
+      margin-top: 1rem;
     }
 
-    .close:hover,
-    .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .canvas {
-      width: 90vw;
-      height: 40vh;
-    }
-
-
-    /* Button */
-    .button {
-      height: 20px;
-      width: 150px;
-      cursor: pointer;
-      position: relative;
-      display: block;
-      padding: 10px 6px;
-      font: normal 15px 'Trebuchet MS', Trebuchet, sans-serif;
-      color: #0077c7;
-      text-decoration: none;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
-      border-top: 1px solid #aebda8;
-      border-left: 1px solid #a4b5a1;
-      border-right: 1px solid #a4b5a1;
-      border-bottom: 1px solid #99aa95;
-      background: #e2ece1;
-      background: -webkit-linear-gradient(#e2ece1, #d6e1d1);
-      background: -moz-linear-gradient(#e2ece1, #d6e1d1);
-      background: -o-linear-gradient(#e2ece1, #d6e1d1);
-      background: linear-gradient(#e2ece1, #d6e1d1);
+    #qr-reader button {
+      align-items: center;
+      appearance: none;
+      background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+      border: 0;
       border-radius: 6px;
-      box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(244, 247, 197, 0.45);
-    }
-
-    .button:hover {
-      background: #eef8ed;
-    }
-
-    .button i {
-      display: inline-block;
-      width: 25px;
-      margin: -3px 3px -3px 2px;
-      vertical-align: middle;
-    }
-
-    .button .label {
+      box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: "JetBrains Mono", monospace;
+      height: 48px;
+      justify-content: center;
+      line-height: 1;
+      list-style: none;
+      overflow: hidden;
+      padding-left: 16px;
+      padding-right: 16px;
       position: relative;
-      top: -4px;
-      left: 40px;
+      text-align: left;
+      text-decoration: none;
+      transition: box-shadow .15s, transform .15s;
+      user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+      font-size: 18px;
+      margin-top: 3rem;
     }
 
-    .button .text {
-      display: block;
-      font-size: 9px;
-      line-height: 0;
-      margin-left: 42px;
-      color: #839180;
-      text-shadow: none;
-      font-family: verdana, sans-serif;
-      position: relative;
-      top: -3px;
+    #qr-reader {
+      display: flex;
+      flex: 8;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .footer {
+      background: #232526;
+      background: -webkit-linear-gradient(to right, #414345, #232526);
+      background: linear-gradient(to right, #414345, #232526);
+      display: flex;
+      justify-content: center;
+      height: 4rem;
+      align-items: center;
+
+    }
+
+    .container {
+      height: 100vh;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+    }
+
+    .fallback h1 {
+      display: none;
+    }
+
+    @media (min-width:480px) {
+      .container {
+        display: none;
+      }
+
+      .fallback h1 {
+        display: block;
+        text-align: center;
+      }
+    }
+
+    @media (orientation: landscape) {
+      .container {
+        display: none;
+      }
+
+      .fallback h1 {
+        display: block;
+        text-align: center;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1 style="text-align: center">BARCODE SCANNER APP v1.27</h1>
-  <canvas id="canvas" class="canvas"></canvas>
-  <!-- The Modal -->
+  <div class="fallback">
+    <h1>This app is only accessible via mobile devices.</h1>
+  </div>
+  <div class="container">
+    <div id="qr-reader" style="width: 100vw;"></div>
+    <div class="footer">
+      <img height="40" width="125" src="https://erp.silicon.ac.in/estcampus/images/logo/SITBBS.jpg" />
+    </div>
+  </div>
   <div id="myModal" class="modal">
-
-    <!-- Modal content -->
     <div class="modal-content">
-      <img id="img" />
+      <img id="img" style="border-radius: 50%;" height="110" width="110" />
       <h3 id="empName"></h3>
       <h3 id="degi"></h3>
-      <img id="barcode" height="150" width="500" />
-      <button class="close">&times;Close</button>
+      <button id="close" class="close">&times;Close</button>
     </div>
-
   </div>
-  <div style="margin-top: 19rem" class="installApp">
-    <a class="button" href="#" rel="nofollow">
-      <i>
-        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px" y="0px" viewBox="0 0 400.1 400.1" style="enable-background:new 0 0 400.1 400.1;" xml:space="preserve">
-          <style type="text/css">
-            .st0 {
-              fill: #79F275;
-            }
-
-            .st1 {
-              fill: #3D8749;
-            }
-          </style>
-          <path class="st0" d="M329.2,270.4h-43.7c-8.8,0-16-6.6-16-14.7V66.1H133.3v189.6c0,8.1-7.2,14.7-16,14.7H73.6l127.8,93.5
-  L329.2,270.4z" />
-          <path class="st1" d="M17.8,267.2l173.6,127.1c2.9,2.1,6.5,3.2,10,3.2c3.5,0,7.1-1.1,10-3.2L385,267.2c5.3-3.9,7.4-10.5,5.1-16.4
-  c-2.2-5.9-8.3-9.9-15.1-9.9h-73.5V51.4c0-8.1-7.2-14.7-16-14.7H117.3c-8.9,0-16,6.6-16,14.7V241H27.8c-6.8,0-12.9,4-15.1,9.9
-  C10.4,256.8,12.5,263.3,17.8,267.2z M117.3,270.4c8.8,0,16-6.6,16-14.7V66.1h136.1v189.6c0,8.1,7.2,14.7,16,14.7h43.7l-127.8,93.5
-  L73.6,270.4H117.3L117.3,270.4z" />
-        </svg>
-      </i>
-      <span class="label">Download</span>
-      <span class="text">Download size, 158 KB</span>
-    </a>
-
+  <div id="noDataModal" class="modal">
+    <div class="no-data-modal">
+      <h1 id="noData" style="font-size: 22px;">
+      </h1>
+      <button id="errModalClose" class="close">&times;CLOSE</button>
+    </div>
   </div>
-  <script src="./index.js" async></script>
+  <script>
+    const userData = [{
+        id: 8,
+        emp_name: "Soumyajit Mohapatra",
+        profile_img: "https://avatars.githubusercontent.com/u/30226045?s=263&v=4",
+        emp_id: 8,
+        designation: "Software Engineer",
+      },
+      {
+        id: 9,
+        emp_name: "Ryomen Sukuna",
+        profile_img: "https://devdiscourse.blob.core.windows.net/devnews/21_07_2021_16_16_31_0860704.jpg",
+        emp_id: 9,
+        designation: "King of Curses",
+      },
+
+    ];
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "qr-reader", {
+        fps: 30,
+        qrbox: {
+          width: 250,
+          height: 200
+        },
+      });
+    const hasValue = (json, value) => new Promise((resolve, reject) => {
+      const find = json.find(ele => ele.id == value)
+      const [state, obj] = [typeof find == 'object', find]
+      if (state) {
+        resolve(obj)
+      } else {
+        reject('User not found')
+      }
+    });
+    // Get the modal
+    const modal = document.getElementById("myModal");
+    modal.style.display = "none";
+    const noDataModal = document.getElementById("noDataModal");
+    noDataModal.style.display = 'none'
+
+    // Get the <span> element that closes the modal
+    const closeBtn = document.getElementById("close");
+    const errModalClose = document.getElementById("errModalClose");
+
+
+    const empName = document.getElementById("empName");
+    const degi = document.getElementById("degi");
+    const img = document.getElementById("img");
+
+    const noData = document.getElementById('noData')
+    const openModal = (modalData) => {
+      setTimeout(() => {
+        empName.innerHTML = `${modalData?.emp_name} (${modalData?.emp_id})`;
+        img.src = modalData.profile_img;
+        degi.innerHTML = modalData.designation;
+        modal.style.display = "block";
+        console.log('if')
+      }, 1500);
+    };
+    const reload = () => window.location.reload();
+    errModalClose.onclick = () => reload()
+    closeBtn.onclick = () => reload()
+
+
+    const openError = (error) => {
+      setTimeout(() => {
+        console.log('else')
+        noData.innerHTML = `No Result found for ${error}`
+        noDataModal.style.display = "block"
+      }, 1500);
+    }
+
+    function onScanSuccess(decodedText, decodedResult) {
+      hasValue(userData, decodedText)
+        .then(res =>
+          openModal(res)
+        ).catch(err => openError(decodedText))
+        .finally(() =>
+          html5QrcodeScanner.pause(true)
+        )
+    }
+
+
+    html5QrcodeScanner.render(onScanSuccess);
+  </script>
+  <!-- <script src="./index.js" async></script> -->
 </body>
 
 </html>
